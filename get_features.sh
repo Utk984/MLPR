@@ -4,7 +4,7 @@
 FILE_EXT="wav"
 
 # Set the command to run on each file
-PROCESS_CMD="python3 ./src/extract_features.py"
+PROCESS_CMD="python3 ./src/help.py"
 
 file_count=0
 # Function to process files and directories
