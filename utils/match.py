@@ -34,7 +34,7 @@ def compute_dmax_for_file(file1, directory):
 
 
 # Example usage
-directory = "./data/hum_test/"
+directory = "./data/random/"
 
 total = 0
 correct1 = 0
@@ -42,9 +42,10 @@ for file in tqdm(os.listdir(directory)):
     total += 1
     if file.endswith(".wav"):
         values = compute_dmax_for_file(
-            os.path.join(directory, file), "./data/song_test/"
+            os.path.join(directory, file), "./data/songs_clean/"
         )
-        if "Hakuna Matata_clean.wav" in [file for file, _ in values]:
+        print(values)
+        if "The Imperial March_clean.wav" in [file for file, _ in values]:
             correct1 += 1
 
 print(f"Accuracy of values: {correct1/total}")

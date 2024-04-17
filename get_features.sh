@@ -4,13 +4,15 @@
 FILE_EXT="wav"
 
 # Set the command to run on each file
-PROCESS_CMD="python3 ./src/help.py"
+PROCESS_CMD="python3 ./src/extract_features_all.py"
+PROCESS_CMD2="python3 ./src/extract_features_mfcc.py"
+DEST_DIR="songs_all.csv"
+DEST_DIR2="songs_mfcc.csv"
 
 file_count=0
 # Function to process files and directories
 process_files() {
     local src_dir="$1"
-    local dest_dir="$2"
 
     # Loop through files and directories in the source directory
     for item in "$src_dir"/*; do
@@ -18,7 +20,8 @@ process_files() {
             # If it's a directory, recursively call the function
             process_files "$item" "$dest_dir"
         elif [ -f "$item" ] && [ "${item##*.}" == "$FILE_EXT" ]; then
-            $PROCESS_CMD "$item" "$dest_dir"
+            $PROCESS_CMD "$item" "$DEST_DIR"
+            $PROCESS_CMD2 "$item" "$DEST_DIR2"
 
             # Increment the file count and display progress on the same line
             ((file_count++))
@@ -31,8 +34,8 @@ process_files() {
 }
 
 # Check if the root directory argument is provided
-if [ "$#" -ne 2 ]; then
-    echo "Usage: $0 <root_directory> <output_file>"
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 <root_directory>"
     exit 1
 fi
 
@@ -43,4 +46,4 @@ root_dir="$1"
 total_files=$(find "$root_dir" -type f | wc -l)
 echo ""
 # Process the input directory
-process_files "$root_dir" "$2"
+process_files "$root_dir"

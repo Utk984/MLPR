@@ -1,10 +1,13 @@
+import sys
+
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 from sklearn.preprocessing import StandardScaler
 
 # Load the features DataFrame from the Excel file
-df = pd.read_csv("features.csv")
+file = sys.argv[1]
+df = pd.read_csv(file)
 df = df.fillna(0)
 filenames = df["filename"]
 df.drop(columns=["filename"], inplace=True)
